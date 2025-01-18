@@ -15,7 +15,7 @@ function Index() {
       </p>
       <a href="/login">
         <button class="get-started">
-          Get Started
+        Get Started
         </button>
       </a>
     </div>
