@@ -1,6 +1,6 @@
 import Navbar from "../components/navbar.jsx";
-import SocialLogin from "./components/SocialLogin";
-import InputField from "./components/InputField";
+import SocialLogin from "../components/SocialLogin";
+import InputField from "../components/InputField";
 import "../styles/login.css";
 
 const Login = () => {
@@ -23,8 +23,8 @@ const Login = () => {
 
         {/* Login form */}
         <form action="#" className="login-form">
-          <InputField type="email" placeholder="Email address" icon="mail" />
-          <InputField type="password" placeholder="Password" icon="lock" />
+          <InputField type="email" placeholder="Email address" />
+          <InputField type="password" placeholder="Password" />
 
           <a href="#" className="forgot-password-link">
             Forgot password?
