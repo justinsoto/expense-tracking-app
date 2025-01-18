@@ -1,0 +1,21 @@
+body{
+  background-color: white;
+}
+.index-container{
+  background: whitesmoke;
+  padding: 100px;
+  padding-left: 150px;
+  padding-right: 150px;
+  border-radius: 10px;
+  margin: 0px;
+}
+.hook{
+  color: black;
+}
+.subtitle{
+  color: rgb(55, 55, 55);
+  font-size: 20px;
+}
+.get-started{
+  margin-top: 30px;
+}
