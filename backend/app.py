@@ -5,8 +5,8 @@ from flask import Flask
 configuration = plaid.Configuration(
     host=plaid.Environment.Sandbox,
     api_key={
-        'clientId': '678beea0aa694400250e72d9',
-        'secret': 'dd663a9b797db6bcb4ed535ee8e30a',
+        'clientId': 'lmao',
+        'secret': 'lmao',
         'plaidVersion': '2020-09-14'
     }
 )
