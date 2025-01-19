@@ -1,0 +1,116 @@
+.credit-page {
+    max-width: 1000px;
+    margin: 0 auto;
+    margin-top: 60px; /* Match the navbar height */
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    color: #333;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  .balance-overview {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f4f6fb;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+  }
+  
+  .balance-overview h2 {
+    font-size: 18px;
+    margin: 0;
+  }
+  
+  .balance {
+    text-align: right;
+  }
+  
+  .balance h2 {
+    color: #007bff;
+    font-size: 24px;
+    margin: 0;
+  }
+  
+  .transaction-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .transaction-table th, .transaction-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+  }
+  
+  .transaction-table th {
+    background-color: #f4f4f4;
+  }
+  
+  .positive-amount {
+    color: #28a745;
+  }
+  
+  .negative-amount {
+    color: #dc3545;
+  }
+  
+  .status {
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  
+  .status.success {
+    background-color: #28a745;
+  }
+  
+  .category {
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #fff;
+  }
+  
+  .category.travel {
+    background-color: #007bff;
+  }
+  
+  .category.payment {
+    background-color: #17a2b8;
+  }
+  
+  .category.food-and-drink {
+    background-color: #ffc107;
+  }
+  
+  .category.transfer {
+    background-color: #6c757d;
+  }
+  
+  .visualizations {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+  }
+  
+  .chart-container {
+    width: 50%;
+    text-align: center;
+  }
+  
+  .positive-amount {
+    color: #28a745;
+  }
+  
+  .negative-amount {
+    color: #dc3545;
+  }
+  
