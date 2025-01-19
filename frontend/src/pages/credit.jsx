@@ -24,16 +24,16 @@ const Credit = () => {
     // Mock API data
     const fetchTransactions = async () => {
       const mockTransactions = [
-        { id: 1, transaction: "Uber", amount: 5.4, date: "2025-04-24", category: "Travel" },
-        { id: 2, transaction: "Payment", amount: 25.0, date: "2025-04-24", category: "Payment" },
-        { id: 3, transaction: "United Airlines", amount: -500.0, date: "2025-04-22", category: "Travel" },
-        { id: 4, transaction: "McDonalds", amount: 12.0, date: "2025-04-21", category: "Food and Drink" },
-        { id: 5, transaction: "Starbucks", amount: 4.33, date: "2025-04-21", category: "Food and Drink" },
-        { id: 6, transaction: "SparkFun", amount: 89.4, date: "2025-04-20", category: "Shopping" },
-        { id: 7, transaction: "Interest Payment", amount: -4.22, date: "2025-04-19", category: "Transfer" },
+        { id: 1, transaction: "Uber", amount: -15.4, date: "2025-04-24", category: "Travel" },
+        { id: 2, transaction: "Payment", amount: -25.0, date: "2025-04-24", category: "Payment" },
+        { id: 3, transaction: "United Airlines", amount: -499.78, date: "2025-04-22", category: "Travel" },
+        { id: 4, transaction: "McDonalds", amount: -12.0, date: "2025-04-21", category: "Food and Drink" },
+        { id: 5, transaction: "Starbucks", amount: -8.33, date: "2025-04-21", category: "Food and Drink" },
+        { id: 6, transaction: "SparkFun", amount: -89.4, date: "2025-04-20", category: "Shopping" },
+        { id: 7, transaction: "Interest Payment", amount: 1000, date: "2025-04-19", category: "Transfer" },
       ];
 
-      const mockBalance = 110.0;
+      const mockBalance = mockTransactions.reduce((sum, transaction) => sum + transaction.amount, 0);
 
       setTransactions(mockTransactions);
       setBalance(mockBalance);
@@ -42,12 +42,14 @@ const Credit = () => {
     fetchTransactions();
   }, []);
 
-  // Aggregate data for visualizations
-  const spendingByCategory = transactions.reduce((acc, transaction) => {
-    const { category, amount } = transaction;
-    acc[category] = (acc[category] || 0) + Math.abs(amount);
-    return acc;
-  }, {});
+  // Aggregate data for visualizations (only negative amounts for the Pie Chart)
+  const spendingByCategory = transactions
+    .filter((transaction) => transaction.amount < 0) // Filter only negative transactions
+    .reduce((acc, transaction) => {
+      const { category, amount } = transaction;
+      acc[category] = (acc[category] || 0) + Math.abs(amount); // Use absolute value for spending
+      return acc;
+    }, {});
 
   const spendingByCategoryData = Object.entries(spendingByCategory).map(([name, value]) => ({
     name,
@@ -113,9 +115,9 @@ const Credit = () => {
         {/* Balance Overview */}
         <div className="balance-overview">
           <div>
-            <h2>Plaid Checking</h2>
-            <p>Plaid Gold Standard 0% Interest Checking</p>
-            <p>●●●● ●●●● ●●●● 0000</p>
+            <h2>Checking</h2>
+            <p>Standard 4% Interest Checking</p>
+            <p>●●●● ●●●● ●●●● 5118</p>
           </div>
           <div className="balance">
             <p>Current balance</p>
@@ -126,7 +128,7 @@ const Credit = () => {
         {/* Visualizations */}
         <div className="visualizations">
           <div className="chart-container">
-            <h3>Spending by Category</h3>
+            <h3>Spending by Category (Negative Transactions)</h3>
             <PieChart width={400} height={300}>
               <Pie
                 data={spendingByCategoryData}
