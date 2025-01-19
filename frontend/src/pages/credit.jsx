@@ -1,11 +1,24 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../components/navbar.jsx";
 import "../styles/credit.css";
-import { PieChart, Pie, Cell, Tooltip, Legend, LineChart, Line, XAxis, YAxis, CartesianGrid } from "recharts";
+import {
+  PieChart,
+  Pie,
+  Cell,
+  Tooltip,
+  Legend,
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+} from "recharts";
 
 const Credit = () => {
   const [transactions, setTransactions] = useState([]);
   const [balance, setBalance] = useState(0);
+  const [budget, setBudget] = useState(0);
+  const [remainingBudget, setRemainingBudget] = useState(0);
 
   useEffect(() => {
     // Mock API data
@@ -46,7 +59,26 @@ const Credit = () => {
     amount: transaction.amount,
   }));
 
-  // Chart Colors
+  // Calculate total spending
+  const totalSpending = transactions.reduce((sum, transaction) => sum + Math.abs(transaction.amount), 0);
+
+  // Calculate remaining budget
+  useEffect(() => {
+    setRemainingBudget(Math.max(budget - totalSpending, 0));
+  }, [transactions, budget]);
+
+  // Handle budget form submission
+  const handleBudgetSubmit = (e) => {
+    e.preventDefault();
+    const newBudget = parseFloat(e.target.budget.value);
+    if (!isNaN(newBudget) && newBudget > 0) {
+      setBudget(newBudget);
+      e.target.reset(); // Clear the form
+    } else {
+      alert("Please enter a valid budget amount.");
+    }
+  };
+
   const COLORS = ["#8884d8", "#82ca9d", "#ffc658", "#ff8042", "#d0ed57", "#a4de6c"];
 
   return (
@@ -55,6 +87,28 @@ const Credit = () => {
       <div className="credit-page">
         <h1>Transaction History</h1>
         <p>See your bank details and transactions.</p>
+
+        {/* Budget Target Form */}
+        <div className="budget-section">
+          <h2>Set Your Monthly Budget</h2>
+          <form onSubmit={handleBudgetSubmit}>
+            <input
+              type="number"
+              name="budget"
+              placeholder="Enter your budget"
+              min="0"
+              step="0.01"
+              required
+            />
+            <button type="submit">Set Budget</button>
+          </form>
+          {budget > 0 && (
+            <div className="budget-details">
+              <p><strong>Budget:</strong> ${budget.toFixed(2)}</p>
+              <p><strong>Remaining Budget:</strong> ${remainingBudget.toFixed(2)}</p>
+            </div>
+          )}
+        </div>
 
         {/* Balance Overview */}
         <div className="balance-overview">
@@ -105,7 +159,7 @@ const Credit = () => {
           </div>
         </div>
 
-        {/* Transaction List */}
+        {/* Transaction Table */}
         <table className="transaction-table">
           <thead>
             <tr>
@@ -128,6 +182,20 @@ const Credit = () => {
             ))}
           </tbody>
         </table>
+
+        {/* Budget Analysis */}
+        <div className="budget-analysis" style={{ marginTop: "30px" }}>
+          <h3>Budget Analysis</h3>
+          <p>
+            You have spent <strong>${totalSpending.toFixed(2)}</strong> out of your budget of{" "}
+            <strong>${budget.toFixed(2)}</strong>.
+          </p>
+          <p>
+            {remainingBudget > 0
+              ? `You still have $${remainingBudget.toFixed(2)} remaining in your budget. Keep it up!`
+              : "You have exceeded your budget. Consider adjusting your expenses."}
+          </p>
+        </div>
       </div>
     </>
   );
